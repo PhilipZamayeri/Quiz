@@ -25,7 +25,14 @@ public class ClientHandler implements Runnable {
 
             while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
-                writer.writeObject("Du skrev: " + input);
+
+                if (input.equals(questionHandler.h1.getAnswer())){
+                    writer.writeObject("Svaret är korrekt! " + input);
+                }
+                else {
+                    writer.writeObject("Svaret är fel! " + input);
+                }
+
             }
         } catch(IOException | ClassNotFoundException e){
             e.printStackTrace();

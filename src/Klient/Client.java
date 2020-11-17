@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Client {
     public Client() throws IOException, ClassNotFoundException {
-        InetAddress iadr= InetAddress.getLocalHost();
+        InetAddress iadr = InetAddress.getLocalHost();
         int portnr= 57777;
 
         Socket socketToServer = new Socket(iadr,portnr);
