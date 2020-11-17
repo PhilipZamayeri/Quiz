@@ -6,27 +6,27 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    public Client() throws IOException {
+    public Client() throws IOException, ClassNotFoundException {
         InetAddress iadr= InetAddress.getLocalHost();
-        int portnr= 33333;
+        int portnr= 57777;
 
-        Socket sockettoservern = new Socket(iadr,portnr);
+        Socket socketToServer = new Socket(iadr,portnr);
         System.out.println("Connected to server.");
-        PrintWriter writer = new PrintWriter(sockettoservern.getOutputStream(), true);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(sockettoservern.getInputStream()));
+        ObjectOutputStream oos = new ObjectOutputStream(socketToServer.getOutputStream());
+        ObjectInputStream ooi = new ObjectInputStream(socketToServer.getInputStream());
 
-        String server;
+        Object server;
         Scanner sc= new Scanner(System.in);
 
-        while((server= reader.readLine())!=null) {
+        while((server = ooi.readObject())!=null) {
             System.out.println("Server: " + server);
             String input = sc.next();
             System.out.println(input);
-            writer.println(input);
+            oos.writeObject(input);
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         new Client();
     }
 }

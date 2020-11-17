@@ -10,8 +10,7 @@ public class QuestionHandler {
 
     }
 
-    public Object handleQuestion(Object o) {
-        return null;
-         }
+    public Object handleQuestion(Object o) {return null;}
+
 }
 

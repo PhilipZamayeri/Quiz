@@ -10,7 +10,7 @@ public class Server {
     QuestionHandler questions= new QuestionHandler();
 
     public Server() throws IOException {
-        int portnr = 33333;
+        int portnr = 57777;
         ServerSocket socket = new ServerSocket(portnr);
         while (true) {
             Socket clientSocket = socket.accept();
