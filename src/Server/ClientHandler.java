@@ -15,19 +15,19 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
+            ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
 
-            String input;
+            Object input;
             QuestionHandler questionHandler = new QuestionHandler();
 
-            writer.println(questionHandler.handleQuestion(null).toString());
+            writer.writeObject(questionHandler.handleQuestion(null).toString());
 
-            while ((input = reader.readLine()) != null) {
+            while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
-                writer.println("Du skrev: " + questionHandler.handleQuestion(input).toString());
+                writer.writeObject("Du skrev: " + questionHandler.handleQuestion(input).toString());
             }
-        } catch(IOException e){
+        } catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }
