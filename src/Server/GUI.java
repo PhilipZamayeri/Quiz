@@ -15,7 +15,7 @@ import java.io.IOException;
  * Copyright: MIT
  */
 public class GUI extends JFrame {
-    QuestionHandler QH = new QuestionHandler();
+    DAO QH = new DAO();
     Font question = new Font("Tahoma", Font.BOLD, 40);
     Font alternatives = new Font("Tahoma", Font.PLAIN, 25);
 
@@ -63,7 +63,7 @@ public class GUI extends JFrame {
         JFrame frame = new JFrame("Quiz");
         JPanel panel = new JPanel();
         JPanel buttonPanel = new JPanel();
-        JLabel label = new JLabel(QH.history.get(0).getQuestion(), SwingConstants.CENTER);
+        JLabel label = new JLabel(QH.mathematics.get(0).getQuestion(), SwingConstants.CENTER);
 
         JButton b1 = new JButton("Alternativ 1");
         JButton b2 = new JButton("Alternativ 2");
@@ -107,12 +107,17 @@ public class GUI extends JFrame {
     public void guiBase(){
         JFrame frame = new JFrame("Quiz");
         JPanel panel = new JPanel();
-        JPanel newGame = new JPanel();
+        JButton newGame = new JButton("New game");
 
+
+        newGame.setFont(question);
+        newGame.setSize(30,30);
+        panel.setLayout(new BorderLayout());
+        panel.add(newGame, BorderLayout.CENTER);
 
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setSize(300,400);
         frame.setLocation(600, 90);
         frame.setVisible(true);
     }
@@ -121,5 +126,6 @@ public class GUI extends JFrame {
         GUI gui = new GUI();
         gui.guiCategory();
         gui.guiQuestion();
+        gui.guiBase();
     }
 }

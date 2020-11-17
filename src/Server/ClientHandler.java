@@ -5,9 +5,9 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     Socket clientSocket;
-    QuestionHandler question;
+    DAO question;
 
-    public ClientHandler(Socket clientSocket, QuestionHandler question) {
+    public ClientHandler(Socket clientSocket, DAO question) {
         this.clientSocket = clientSocket;
         this.question = question;
     }
@@ -19,14 +19,14 @@ public class ClientHandler implements Runnable {
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
 
             Object input;
-            QuestionHandler questionHandler = new QuestionHandler();
+            DAO questionHandler = new DAO();
 
             writer.writeObject(questionHandler.handleQuestion(null).toString());
 
             while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
 
-                if (input.equals(questionHandler.h1.getAnswer())){
+                if (input.equals(questionHandler.m1.getAnswer())){
                     writer.writeObject("Svaret är korrekt! " + input);
                 }
                 else {
