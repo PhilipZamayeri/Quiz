@@ -14,7 +14,7 @@ public class DAO {
     Question m3 = new Question("Maria köpte 10 böcker och 5 pennor för 2kr var, hur mycket kostade allting?", "30", List.of("30","25","17","35"));
     Question m4 = new Question("1... 3... 5... ?", "7", List.of("7","9","12","6"));
 
-    Question g1 = new Question("Hur många kontinenter finns det?", "7", List.of("7","5","12","4"));
+    Question g1 = new Question("Hur många kontinenter finns det?", "7", List.of("7","5","12","6"));
     Question g2 = new Question("Vad heter Sveriges huvudstad?", "Stockholm", List.of("Köpenhamn", "Göteborg", "Stockholm", "Malmö"));
     Question g3 = new Question("Hur många stjärnor finns i EU-flagga?", "12", List.of("13","20","15","12"));
     Question g4 = new Question("I vilket land ligger Machu Picchu?", "Peru", List.of("Peru", "USA", "Brazil", "Madagascar"
@@ -54,6 +54,33 @@ public class DAO {
         sport.add(s4);
 
     }
+
+    public String mathAnswer() {
+        return mathematics.get(0).getAnswer();
+    }
+    public String sportAnswer() {
+        return sport.get(0).getAnswer();
+    }
+    public String geoAnswer() {
+        return geopgraphy.get(0).getAnswer();
+    }
+    public String pleasureAnswer() {
+        return pleasure.get(0).getAnswer();
+    }
+
+    public List getListMath() {
+        return mathematics;
+    }
+    public List getListSport() {
+        return sport;
+    }
+    public List getListPleasure() {
+        return pleasure;
+    }
+    public List getListGeography() {
+        return geopgraphy;
+    }
+
 
     public void print(){
         System.out.println(m1.getAlternatives().get(0));

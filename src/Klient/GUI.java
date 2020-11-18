@@ -1,4 +1,7 @@
-package Server;
+package Klient;
+import Server.DAO;
+import Server.Question;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -148,12 +151,16 @@ public class GUI extends JFrame{
     }
 
     public void checkAnswer(JButton button){
-        if (button.getText().trim().equalsIgnoreCase(dao.sport.get(0).getAnswer()) ||
-                button.getText().trim().equalsIgnoreCase(dao.mathematics.get(0).getAnswer()) ||
-                button.getText().trim().equalsIgnoreCase(dao.geopgraphy.get(0).getAnswer()) ||
-                button.getText().trim().equalsIgnoreCase(dao.pleasure.get(0).getAnswer())){
+
+        if (button.getText().trim().equalsIgnoreCase(dao.sportAnswer()) ||
+                button.getText().trim().equalsIgnoreCase(dao.mathAnswer()) ||
+                button.getText().trim().equalsIgnoreCase(dao.geoAnswer()) ||
+                button.getText().trim().equalsIgnoreCase(dao.pleasureAnswer())){
 
             System.out.println("Korrekt!");
+            button.setBackground(new Color(203, 0, 0));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             correctAnswers++;
         }
         else {
@@ -163,16 +170,20 @@ public class GUI extends JFrame{
 
     public void category(MouseEvent e){
         if (categoryButton1 == e.getSource()){
-            questionSetup(dao.geopgraphy);
+            //questionSetup(dao.geopgraphy);
+            questionSetup(dao.getListGeography());
         }
         else if(categoryButton2 == e.getSource()){
-            questionSetup(dao.sport);
+            //questionSetup(dao.sport);
+            questionSetup(dao.getListSport());
         }
         else if(categoryButton3 == e.getSource()){
-            questionSetup(dao.pleasure);
+            //questionSetup(dao.pleasure);
+            questionSetup(dao.getListPleasure());
         }
         else{
-            questionSetup(dao.mathematics);
+            //questionSetup(dao.mathematics);
+            questionSetup(dao.getListMath());
         }
     }
 
