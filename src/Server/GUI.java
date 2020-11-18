@@ -1,11 +1,10 @@
 package Server;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Philip Zamayeri
@@ -14,118 +13,191 @@ import java.io.IOException;
  * Project: Quiz
  * Copyright: MIT
  */
-public class GUI extends JFrame {
-    DAO QH = new DAO();
-    Font question = new Font("Tahoma", Font.BOLD, 40);
-    Font alternatives = new Font("Tahoma", Font.PLAIN, 25);
+public class GUI extends JFrame{
+    DAO dao = new DAO();
+
+    private int correctAnswers = 0;
+    private int result = 0;
+
+    JFrame frame = new JFrame("QUIZ");
+
+    JPanel mainPanel = new JPanel();
+
+    JPanel gamePanel = new JPanel();
+
+    JPanel categoriesPanel = new JPanel();
+    JButton categoryButton1 = new JButton("Geografi");
+    JButton categoryButton2 = new JButton("Sport");
+    JButton categoryButton3 = new JButton("Nöje");
+    JButton categoryButton4 = new JButton("Matematik");
 
 
-    public void guiCategory() throws IOException {
-        JFrame frame = new JFrame("Quiz");
+    JButton newGame = new JButton("Nytt spel");
+    JButton testButton = new JButton("TEST");
 
-        JPanel board = new JPanel();
-        JPanel panel = new JPanel();
-        JPanel buttonPanel = new JPanel();
-
-        JLabel label = new JLabel("Choose category!", SwingConstants.CENTER);
-
-        JButton b1 = new JButton("History");
-        JButton b2 = new JButton("Sport");
-        JButton b3 = new JButton("TV");
-
-        BufferedImage myPicture = ImageIO.read(new File("/Users/philipzamayeri/Desktop/testQuic.jpeg"));
-        JLabel pic = new JLabel(new ImageIcon(myPicture));
+    JLabel question;
+    JButton button1;
+    JButton button2;
+    JButton button3;
+    JButton button4;
 
 
-        panel.setLayout(new BorderLayout());
-        panel.add(buttonPanel, BorderLayout.CENTER);
-        panel.add(board, BorderLayout.NORTH);
-        board.setLayout(new BorderLayout());
-        board.add(pic, BorderLayout.NORTH);
-        board.add(label, BorderLayout.CENTER);
+    public GUI() {
 
 
-        buttonPanel.setLayout(new BorderLayout());
-        buttonPanel.add(b1, BorderLayout.NORTH);
-        buttonPanel.add(b2, BorderLayout.CENTER);
-        buttonPanel.add(b3, BorderLayout.SOUTH);
+        add(mainPanel);
+        mainPanel.setSize(400, 500);
+        mainPanel.setBackground(new Color(127, 61, 61));
+        mainPanel.setLayout(null);
 
+        newGame.setBounds(50, 150, 300, 50);
+        //newGame.setLocation(100, 200);
+        //newGame.setPreferredSize(new Dimension(300, 50));
+        newGame.setBackground(new Color(0x9252260E, true));
+        newGame.setOpaque(true);
 
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocation(600, 90);
-        frame.setVisible(true);
+        testButton.setBounds(50, 200, 300, 50);
+
+        newGame.addMouseListener(newGameListener);
+
+        mainPanel.add(newGame);
+        mainPanel.add(testButton);
+
+        setVisible(true);
+        setSize(400, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 
-    public void guiQuestion(){
-        JFrame frame = new JFrame("Quiz");
-        JPanel panel = new JPanel();
-        JPanel buttonPanel = new JPanel();
-        JLabel label = new JLabel(QH.mathematics.get(0).getQuestion(), SwingConstants.CENTER);
+    public void categories() {
+        categoryButton1.addMouseListener(chooseCategoryListener);
+        categoryButton2.addMouseListener(chooseCategoryListener);
+        categoryButton3.addMouseListener(chooseCategoryListener);
+        categoryButton4.addMouseListener(chooseCategoryListener);
 
-        JButton b1 = new JButton("Alternativ 1");
-        JButton b2 = new JButton("Alternativ 2");
-        JButton b3 = new JButton("Alternativ 3");
-        JButton b4 = new JButton("Alternativ 4");
+        mainPanel.setVisible(false);
+        add(categoriesPanel);
 
-        b1.setFont(alternatives);
-        b1.setBackground(Color.YELLOW);
-        b1.setOpaque(true);
+        categoriesPanel.setBackground(new Color(127, 61, 61));
+        categoriesPanel.setLayout(null);
 
-        b2.setFont(alternatives);
-        b2.setBackground(Color.YELLOW);
-        b2.setOpaque(true);
+        categoriesPanel.add(categoryButton1);
+        categoriesPanel.add(categoryButton2);
+        categoriesPanel.add(categoryButton3);
+        categoriesPanel.add(categoryButton4);
 
-        b3.setFont(alternatives);
-        b3.setBackground(Color.YELLOW);
-        b3.setOpaque(true);
+        categoryButton1.setBounds(50, 150, 300, 50);
+        categoryButton2.setBounds(50, 210, 300, 50);
+        categoryButton3.setBounds(50, 270, 300, 50);
+        categoryButton4.setBounds(50, 330, 300, 50);
 
-        b4.setFont(alternatives);
-        b4.setBackground(Color.YELLOW);
-        b4.setOpaque(true);
+        setVisible(true);
+        setSize(400, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        panel.setLayout(new BorderLayout());
-        panel.add(label, BorderLayout.NORTH);
-        label.setFont(question);
-        buttonPanel.setLayout(new GridLayout(2,2));
-        panel.add(buttonPanel);
-
-        buttonPanel.add(b1);
-        buttonPanel.add(b2);
-        buttonPanel.add(b3);
-        buttonPanel.add(b4);
-
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocation(600, 90);
-        frame.setVisible(true);
     }
 
-    public void guiBase(){
-        JFrame frame = new JFrame("Quiz");
-        JPanel panel = new JPanel();
-        JButton newGame = new JButton("New game");
+    public void startNewGame() {
+
+        categoriesPanel.setVisible(false);
+        add(gamePanel);
+
+        gamePanel.add(button1);
+        gamePanel.add(button2);
+        gamePanel.add(button3);
+        gamePanel.add(button4);
+        gamePanel.add(question);
 
 
-        newGame.setFont(question);
-        newGame.setSize(30,30);
-        panel.setLayout(new BorderLayout());
-        panel.add(newGame, BorderLayout.CENTER);
+        question.setLocation(50, 100);
+        question.setSize(300, 50);
+        question.setVisible(true);
 
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300,400);
-        frame.setLocation(600, 90);
-        frame.setVisible(true);
+        button1.setBounds(30, 200, 155, 50);
+        button2.setBounds(215, 200, 155, 50);
+        button3.setBounds(30, 250, 155, 50);
+        button4.setBounds(215, 250, 155, 50);
+
+        gamePanel.setBackground(new Color(127, 61, 61));
+        gamePanel.setLayout(null);
+
+        setVisible(true);
+        setSize(400, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
     }
 
-    public static void main(String[] args) throws IOException {
-        GUI gui = new GUI();
-        gui.guiCategory();
-        gui.guiQuestion();
-        gui.guiBase();
+    public void questionSetup(List<Question> category){
+        Collections.shuffle(category);
+        question = new JLabel(category.get(0).getQuestion(), SwingConstants.CENTER);
+        button1 = new JButton(category.get(0).getAlternatives().get(0));
+        button1.addMouseListener(chooseAlternativesListener);
+        button2 = new JButton(category.get(0).getAlternatives().get(1));
+        button2.addMouseListener(chooseAlternativesListener);
+        button3 = new JButton(category.get(0).getAlternatives().get(2));
+        button3.addMouseListener(chooseAlternativesListener);
+        button4 = new JButton(category.get(0).getAlternatives().get(3));
+        button4.addMouseListener(chooseAlternativesListener);
+
+        startNewGame();
+
+
+    }
+
+    public void checkAnswer(List<Question> list, JButton button){
+        if (button.getText().trim().equalsIgnoreCase(list.get(0).getAnswer())){
+            System.out.println("Korrekt!");
+        }
+        else {
+            System.out.println("Fel svar!");
+        }
+    }
+
+    public void category(MouseEvent e){
+        if (categoryButton1 == e.getSource()){
+            questionSetup(dao.geopgraphy);
+        }
+        else if(categoryButton2 == e.getSource()){
+            questionSetup(dao.sport);
+        }
+        else if(categoryButton3 == e.getSource()){
+            questionSetup(dao.pleasure);
+        }
+        else{
+            questionSetup(dao.mathematics);
+        }
+    }
+
+   MouseAdapter chooseAlternativesListener = new MouseAdapter() {
+       @Override
+       public void mouseClicked(MouseEvent e) {
+           super.mouseClicked(e);
+
+       }
+   };
+
+    MouseAdapter chooseCategoryListener = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            category(e);
+        }
+    };
+
+    MouseAdapter newGameListener = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            categories();
+        }
+    };
+
+
+
+    public static void main(String[] args) {
+        new GUI();
     }
 }

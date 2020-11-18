@@ -32,7 +32,6 @@ public class DAO {
 
 
 
-
     public DAO() {
         mathematics.add(m1);
         mathematics.add(m2);
@@ -54,12 +53,22 @@ public class DAO {
         sport.add(s3);
         sport.add(s4);
 
+    }
 
-
-
+    public void print(){
+        System.out.println(m1.getAlternatives().get(0));
+        System.out.println(m1.getAlternatives().get(1));
+        System.out.println(m1.getAlternatives().get(2));
+        System.out.println(m1.getAlternatives().get(3));
     }
 
     public Object handleQuestion(Object o) {return m1.getQuestion();}
+
+    public static void main(String[] args) {
+        DAO dao = new DAO();
+        dao.print();
+
+    }
 
 }
 
