@@ -33,15 +33,15 @@ public class GUI extends JFrame {
         JButton b2 = new JButton("Sport");
         JButton b3 = new JButton("TV");
 
-        BufferedImage myPicture = ImageIO.read(new File("/Users/philipzamayeri/Desktop/testQuic.jpeg"));
-        JLabel pic = new JLabel(new ImageIcon(myPicture));
+        //BufferedImage myPicture = ImageIO.read(new File("/Users/philipzamayeri/Desktop/testQuic.jpeg"));
+        //JLabel pic = new JLabel(new ImageIcon(myPicture));
 
 
         panel.setLayout(new BorderLayout());
         panel.add(buttonPanel, BorderLayout.CENTER);
         panel.add(board, BorderLayout.NORTH);
         board.setLayout(new BorderLayout());
-        board.add(pic, BorderLayout.NORTH);
+        //board.add(pic, BorderLayout.NORTH);
         board.add(label, BorderLayout.CENTER);
 
 
