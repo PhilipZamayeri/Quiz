@@ -9,9 +9,9 @@ public class Question implements Serializable {
     String answer;
 
     public Question(String question, String answer, List<String> alternatives) {
-        this.question = question;
-        this.answer = answer;
-        this.alternatives = alternatives;
+        setQuestion(question);
+        setAnswer(answer);
+        setAlternatives(alternatives);
     }
 
     public String getQuestion() {
@@ -29,6 +29,10 @@ public class Question implements Serializable {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    public void setAlternatives(List<String> alternatives){this.alternatives = alternatives;}
+
+    public List<String> getAlternatives(){return alternatives;}
 
     @Override
     public String toString() {
