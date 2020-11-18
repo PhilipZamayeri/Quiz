@@ -134,22 +134,27 @@ public class GUI extends JFrame{
         Collections.shuffle(category);
         question = new JLabel(category.get(0).getQuestion(), SwingConstants.CENTER);
         button1 = new JButton(category.get(0).getAlternatives().get(0));
-        button1.addMouseListener(chooseAlternativesListener);
         button2 = new JButton(category.get(0).getAlternatives().get(1));
-        button2.addMouseListener(chooseAlternativesListener);
         button3 = new JButton(category.get(0).getAlternatives().get(2));
-        button3.addMouseListener(chooseAlternativesListener);
         button4 = new JButton(category.get(0).getAlternatives().get(3));
+
+        button1.addMouseListener(chooseAlternativesListener);
+        button2.addMouseListener(chooseAlternativesListener);
+        button3.addMouseListener(chooseAlternativesListener);
         button4.addMouseListener(chooseAlternativesListener);
 
         startNewGame();
 
-
     }
 
-    public void checkAnswer(List<Question> list, JButton button){
-        if (button.getText().trim().equalsIgnoreCase(list.get(0).getAnswer())){
+    public void checkAnswer(JButton button){
+        if (button.getText().trim().equalsIgnoreCase(dao.sport.get(0).getAnswer()) ||
+                button.getText().trim().equalsIgnoreCase(dao.mathematics.get(0).getAnswer()) ||
+                button.getText().trim().equalsIgnoreCase(dao.geopgraphy.get(0).getAnswer()) ||
+                button.getText().trim().equalsIgnoreCase(dao.pleasure.get(0).getAnswer())){
+
             System.out.println("Korrekt!");
+            correctAnswers++;
         }
         else {
             System.out.println("Fel svar!");
@@ -175,7 +180,7 @@ public class GUI extends JFrame{
        @Override
        public void mouseClicked(MouseEvent e) {
            super.mouseClicked(e);
-
+           checkAnswer((JButton) e.getSource());
        }
    };
 
