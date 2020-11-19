@@ -12,17 +12,17 @@ public class Client {
 
         Socket socketToServer = new Socket(iadr,portnr);
         System.out.println("Connected to server.");
-        ObjectOutputStream oos = new ObjectOutputStream(socketToServer.getOutputStream());
-        ObjectInputStream ooi = new ObjectInputStream(socketToServer.getInputStream());
+        PrintWriter writer = new PrintWriter(socketToServer.getOutputStream());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socketToServer.getInputStream()));
 
         Object server;
         Scanner sc= new Scanner(System.in);
 
-        while((server = ooi.readObject())!=null) {
+        while((server = reader.readLine())!=null) {
             System.out.println("Server: " + server);
             String input = sc.next();
             System.out.println(input);
-            oos.writeObject(input);
+            writer.println(input);
         }
     }
 
