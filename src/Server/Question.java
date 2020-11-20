@@ -3,6 +3,13 @@ package Server;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Created by Philip Zamayeri
+ * Date: 2020-11-15
+ * Time: 11:22
+ * Project: Quiz
+ * Copyright: MIT
+ */
 public class Question implements Serializable {
     String question;
     List<String> alternatives;

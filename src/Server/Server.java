@@ -1,30 +1,44 @@
 package Server;
 
-import Klient.Client;
-import Klient.GUI;
-
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 
-
+/**
+ * Created by Philip Zamayeri
+ * Date: 2020-11-15
+ * Time: 09:37
+ * Project: Quiz
+ * Copyright: MIT
+ */
 public class Server {
-    DAO questions= new DAO();
+    DAO questions = new DAO();
 
     public Server() throws IOException {
         int portnr = 57777;
         ServerSocket socket = new ServerSocket(portnr);
-        while (true) {
-            Socket clientSocket = socket.accept();
-            System.out.println("New client connected.");
-            ClientHandler clientHandler = new ClientHandler(clientSocket, questions);
-            Thread clientHandlerThread = new Thread(clientHandler);
-            clientHandlerThread.start();
-        }
 
+        try {
+            while (true) {
+                ClientHandler player1
+                        = new ClientHandler(socket.accept(), questions);
+                ClientHandler player2
+                        = new ClientHandler(socket.accept(), questions);
+
+                ServerSideGame game = new ServerSideGame(player1,player2);
+
+                player1.setOpponent(player2);
+                player2.setOpponent(player1);
+                game.currentPlayer = player1;
+                player1.start();
+                player2.start();
+            }
+        } finally {
+            socket.close();
+        }
     }
 
+
     public static void main(String[] args) throws IOException {
-        Server server= new Server();
+        Server server = new Server();
     }
 }

@@ -2,7 +2,6 @@ package Klient;
 
 import Server.DAO;
 import Server.Question;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

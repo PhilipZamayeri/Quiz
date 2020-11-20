@@ -1,10 +1,15 @@
 package Server;
 
-import Klient.GUI;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Philip Zamayeri
+ * Date: 2020-11-17
+ * Time: 10:01
+ * Project: Quiz
+ * Copyright: MIT
+ */
 public class DAO {
     public List<Question> mathematics = new ArrayList<>();
     public List<Question> geopgraphy = new ArrayList<>();

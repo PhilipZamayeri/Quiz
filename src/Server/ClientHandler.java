@@ -1,11 +1,15 @@
 package Server;
 
-import Klient.Client;
-import Klient.GUI;
-
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Created by Philip Zamayeri
+ * Date: 2020-11-17
+ * Time: 11:22
+ * Project: Quiz
+ * Copyright: MIT
+ */
 public class ClientHandler extends Thread{
     ClientHandler opponent;
     Socket clientSocket;
