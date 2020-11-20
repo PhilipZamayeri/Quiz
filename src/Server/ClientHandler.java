@@ -5,11 +5,11 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     Socket clientSocket;
-    DAO question;
+    DAO questionsDatabase;
 
-    public ClientHandler(Socket clientSocket, DAO question) {
+    public ClientHandler(Socket clientSocket, DAO questionsDatabase) {
         this.clientSocket = clientSocket;
-        this.question = question;
+        this.questionsDatabase = questionsDatabase;
     }
 
     @Override
@@ -18,15 +18,17 @@ public class ClientHandler implements Runnable {
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
 
+            //DAO questionHandler = new DAO();
+
+            Question question = (Question) questionsDatabase.handleQuestion(null);
+            //Skickar fråga till Clienten
+            writer.writeObject(question);
+
             Object input;
-            DAO questionHandler = new DAO();
-
-            writer.writeObject(questionHandler.handleQuestion(null).toString());
-
             while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
 
-                if (input.equals(questionHandler.m1.getAnswer())){
+                if (input.equals(question.getAnswer())){
                     writer.writeObject("Svaret är korrekt! " + input);
                 }
                 else {
