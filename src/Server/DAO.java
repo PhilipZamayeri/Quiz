@@ -33,6 +33,7 @@ public class DAO {
 
 
     public DAO() {
+        System.out.println("hej");
         mathematics.add(m1);
         mathematics.add(m2);
         mathematics.add(m3);
