@@ -1,8 +1,12 @@
 package Server;
 
+import Klient.Client;
+import Klient.GUI;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 
 public class Server {
     DAO questions= new DAO();
