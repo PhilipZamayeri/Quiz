@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Client {
 
-    public Client() throws IOException, ClassNotFoundException {
+    public Client() throws IOException{
         InetAddress iadr = InetAddress.getLocalHost();
         int portnr= 57777;
 
@@ -30,7 +30,7 @@ public class Client {
 
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException{
        Client client =  new Client();
 
     }
