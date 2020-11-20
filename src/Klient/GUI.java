@@ -64,7 +64,7 @@ public class GUI extends JFrame {
         newGame.addMouseListener(newGameListener);
 
         mainPanel.add(newGame);
-        mainPanel.add(testButton);
+
 
         setVisible(true);
         setSize(400, 500);
@@ -77,6 +77,7 @@ public class GUI extends JFrame {
 
         categoriesPanel.setVisible(false);
         add(gamePanel);
+
 
         gamePanel.add(buttons[0]);
         gamePanel.add(buttons[1]);
@@ -187,7 +188,7 @@ public class GUI extends JFrame {
             System.out.println("Korrekt!");
             button.setBackground(Color.GREEN);
             button.setOpaque(true);
-            button.setBorderPainted(false);
+            button.setBorderPainted(true);
             correctAnswers++;
             try {
                 Thread.sleep(2000);
@@ -200,7 +201,7 @@ public class GUI extends JFrame {
             System.out.println("Fel svar!");
             button.setBackground(Color.red);
             button.setOpaque(true);
-            button.setBorderPainted(false);
+            button.setBorderPainted(true);
             try {
                 Thread.sleep(2000);
                 button.setBackground(Color.white);

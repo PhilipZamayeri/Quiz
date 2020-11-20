@@ -71,6 +71,7 @@ public class DAO {
 
 
     public Object handleQuestion(Object o) {
+
         return m1.getQuestion();
     }
 

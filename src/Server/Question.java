@@ -35,12 +35,4 @@ public class Question implements Serializable {
 
     public List<String> getAlternatives(){return alternatives;}
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                ", alternatives=" + alternatives +
-                ", answer='" + answer + '\'' +
-                '}';
-    }
 }
