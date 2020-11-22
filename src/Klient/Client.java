@@ -1,15 +1,17 @@
 package Klient;
 
 import Klient.gui.GameFrame;
+import Klient.gui.NewGamePanel;
 import Server.Question;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client {
-    public Client() throws IOException, ClassNotFoundException {
+    public Client() throws IOException, ClassNotFoundException, InterruptedException {
 
         InetAddress iadr = InetAddress.getLocalHost();
         int portnr= 57777;
@@ -19,8 +21,7 @@ public class Client {
         ObjectOutputStream oos = new ObjectOutputStream(socketToServer.getOutputStream());
         ObjectInputStream ooi = new ObjectInputStream(socketToServer.getInputStream());
 
-        GameFrame gameFrame =
-                new GameFrame(oos);
+        GameFrame gameFrame = new GameFrame(oos);
 
         Object incomingObject;
         //Scanner sc= new Scanner(System.in);
@@ -29,13 +30,26 @@ public class Client {
             System.out.println("Server: " + incomingObject);
             //Kollar om incomingObject är en Question
             if(incomingObject instanceof Question) {
+                gameFrame.getQuestionPanel().setClickedButtonColor(Color.YELLOW);
                 gameFrame.getQuestionPanel().addQuestionToPanel((Question) incomingObject);
+                gameFrame.changeToQuestionPanel();
+                //gameFrame.changeToCatagoriesPanel();
+                //gameFrame.changeToNewGamePanel();
             } else if(incomingObject instanceof String) {
                 String resultat = (String) incomingObject;
-                if(resultat.contains("korrekt")) {
+                if(resultat.contains("Välj catagorie")){
+                    gameFrame.changeToCatagoriesPanel();
+                }
+                else if(resultat.contains("korrekt")) {
                     //Ändra färg
+                    gameFrame.getQuestionPanel().setClickedButtonColor(Color.GREEN);
+                    Thread.sleep(1000);
+                    //gameFrame.changeToNewGamePanel();
                 } else {
                     //Ändra färg
+                    gameFrame.getQuestionPanel().setClickedButtonColor(Color.RED);
+                    Thread.sleep(1000);
+                    //gameFrame.changeToNewGamePanel();
                 }
             }
             //String input = sc.next();
@@ -44,7 +58,7 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         new Client();
     }
 }

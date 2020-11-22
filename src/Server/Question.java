@@ -8,6 +8,7 @@ public class Question implements Serializable {
     private List<String> alternatives;
     private String answer;
 
+
     public Question(String question, String answer, List<String> alternatives) {
         this.question = question;
         this.answer = answer;

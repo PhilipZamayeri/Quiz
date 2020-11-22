@@ -1,5 +1,6 @@
 package Server;
 
+
 import java.io.*;
 import java.net.Socket;
 
@@ -21,17 +22,37 @@ public class ClientHandler implements Runnable {
             //DAO questionHandler = new DAO();
 
             Question question = (Question) questionsDatabase.handleQuestion(null);
+            //NewGameGui nyttSpel= new NewGameGui();
+
             //Skickar fråga till Clienten
-            writer.writeObject(question);
+
 
             Object input;
             while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
 
-                if (input.equals(question.getAnswer())){
-                    writer.writeObject("Svaret är korrekt! " + input);
+                if(input instanceof NewGameRequest) {
+                    writer.writeObject("Välj catagorie");
                 }
-                else {
+                else if(input.equals("Geografi")){
+                    question = questionsDatabase.g1;
+                    writer.writeObject(question);
+                }
+                else if(input.equals("Nöje")){
+                    question = questionsDatabase.p1;
+                    writer.writeObject(question);
+                }
+                else if(input.equals("Sport")){
+                    question = questionsDatabase.s1;
+                    writer.writeObject(question);
+                }
+                else if(input.equals("Matematik")){
+                    question = questionsDatabase.m1;
+                    writer.writeObject(question);
+                }
+                else if (input.equals(question.getAnswer())){
+                    writer.writeObject("Svaret är korrekt! " + input);
+                } else {
                     writer.writeObject("Svaret är fel! " + input);
                 }
 
