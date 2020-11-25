@@ -41,7 +41,7 @@ public class GUI extends JFrame {
 
 
     JButton newGame = new JButton("Nytt spel");
-    JButton testButton = new JButton("TEST");
+
 
     JLabel question;
 
@@ -57,8 +57,6 @@ public class GUI extends JFrame {
 
         newGame.setBackground(new Color(0x9252260E, true));
         newGame.setOpaque(true);
-
-        testButton.setBounds(50, 200, 300, 50);
 
         newGame.addMouseListener(newGameListener);
 

@@ -28,6 +28,8 @@ public class QuestionPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(null);
+        add(buttonPanel);
 
         label= new JLabel(newQuestion.getQuestion(), SwingConstants.CENTER);
 
@@ -40,6 +42,13 @@ public class QuestionPanel extends JPanel {
         b2.addActionListener(new InternalAnswerListener());
         b3.addActionListener(new InternalAnswerListener());
         b4.addActionListener(new InternalAnswerListener());
+
+
+        b1.setBounds(30, 200, 155, 50);
+        b2.setBounds(215, 200, 155, 50);
+        b3.setBounds(30, 250, 155, 50);
+        b4.setBounds(215, 250, 155, 50);
+
 
         b1.setFont(alternativesFont);
         b1.setBackground(Color.YELLOW);
@@ -59,8 +68,7 @@ public class QuestionPanel extends JPanel {
 
         add(label, BorderLayout.NORTH);
         label.setFont(questionFont);
-        buttonPanel.setLayout(new GridLayout(2,2));
-        add(buttonPanel);
+
 
         buttonPanel.add(b1);
         buttonPanel.add(b2);

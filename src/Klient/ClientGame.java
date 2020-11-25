@@ -66,13 +66,7 @@ public class ClientGame implements Runnable {
                     }
                 }
             }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (InterruptedException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
