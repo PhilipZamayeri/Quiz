@@ -4,13 +4,22 @@ package Server;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable {
+public class ClientHandler extends Thread{
     Socket clientSocket;
     DAO questionsDatabase;
+    ClientHandler opponent;
 
     public ClientHandler(Socket clientSocket, DAO questionsDatabase) {
         this.clientSocket = clientSocket;
         this.questionsDatabase = questionsDatabase;
+    }
+
+    public void setOpponent(ClientHandler opponent) {
+        this.opponent = opponent;
+    }
+
+    public ClientHandler getOpponent() {
+        return opponent;
     }
 
     @Override
