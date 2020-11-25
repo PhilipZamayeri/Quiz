@@ -3,24 +3,16 @@ package Server;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Philip Zamayeri
- * Date: 2020-11-15
- * Time: 11:22
- * Project: Quiz
- * Copyright: MIT
- */
 public class Question implements Serializable {
     String question;
     List<String> alternatives;
     String answer;
 
     public Question(String question, String answer, List<String> alternatives) {
-        setQuestion(question);
-        setAnswer(answer);
-        setAlternatives(alternatives);
+        this.question = question;
+        this.answer = answer;
+        this.alternatives = alternatives;
     }
-
 
     public String getQuestion() {
         return question;
@@ -38,8 +30,12 @@ public class Question implements Serializable {
         this.answer = answer;
     }
 
-    public void setAlternatives(List<String> alternatives){this.alternatives = alternatives;}
-
-    public List<String> getAlternatives(){return alternatives;}
-
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", alternatives=" + alternatives +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }
