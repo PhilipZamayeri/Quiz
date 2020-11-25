@@ -33,7 +33,7 @@ public class DAO {
 
 
     public DAO() {
-        System.out.println("hej");
+
         mathematics.add(m1);
         mathematics.add(m2);
         mathematics.add(m3);
@@ -56,19 +56,26 @@ public class DAO {
 
     }
 
-    public void print(){
-        System.out.println(m1.getAlternatives().get(0));
-        System.out.println(m1.getAlternatives().get(1));
-        System.out.println(m1.getAlternatives().get(2));
-        System.out.println(m1.getAlternatives().get(3));
-    }
+    public String mathAnswer() {return mathematics.get(0).getAnswer();}
+    public String mathAnswer2() {return mathematics.get(1).getAnswer();}
+
+    public String sportAnswer() {return sport.get(0).getAnswer();}
+    public String sportAnswer2() {return sport.get(1).getAnswer();}
+
+    public String geoAnswer() {return geopgraphy.get(0).getAnswer();}
+    public String geoAnswer2() {return geopgraphy.get(1).getAnswer();}
+
+    public String pleasureAnswer() {return pleasure.get(0).getAnswer();}
+    public String pleasureAnswer2() {return pleasure.get(1).getAnswer();}
+
+
     public Object handleQuestion(Object o) {
         return m2;
     }
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-        dao.print();
+
 
     }
 
