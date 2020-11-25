@@ -34,7 +34,7 @@ public class Protocol {
             gameState = SENTTOPLAYER2;
         } else if (gameState == SENTTOPLAYER2) {
             //Skicka fråga till player 2
-            gameState = PLAYER1ANSWERED;
+            gameState = PLAYER1ANSWERED;4
         } else if (gameState == PLAYER1ANSWERED) {
             //Kontrollera svar
             gameState = PLAYER2ANSWERED;
