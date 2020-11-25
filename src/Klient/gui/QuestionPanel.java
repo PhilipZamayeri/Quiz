@@ -14,7 +14,7 @@ public class QuestionPanel extends JPanel {
     Font questionFont = new Font("Tahoma", Font.BOLD, 40);
     Font alternativesFont = new Font("Tahoma", Font.PLAIN, 25);
 
-    JLabel label= new JLabel("Question here", SwingConstants.CENTER);
+    JLabel label;
     JButton b1;
     JButton b2;
     JButton b3;
@@ -22,7 +22,9 @@ public class QuestionPanel extends JPanel {
 
     JButton lastClickedButton;
 
-    public QuestionPanel(Question newQuestion, ObjectOutputStream oos) {
+    private ObjectOutputStream oos;
+
+    public QuestionPanel(Question newQuestion) {
         setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel();
@@ -34,10 +36,10 @@ public class QuestionPanel extends JPanel {
         b3 = new JButton(newQuestion.getAlternatives().get(2));
         b4 = new JButton(newQuestion.getAlternatives().get(3));
 
-        b1.addActionListener(new InternalAnswerListener(oos));
-        b2.addActionListener(new InternalAnswerListener(oos));
-        b3.addActionListener(new InternalAnswerListener(oos));
-        b4.addActionListener(new InternalAnswerListener(oos));
+        b1.addActionListener(new InternalAnswerListener());
+        b2.addActionListener(new InternalAnswerListener());
+        b3.addActionListener(new InternalAnswerListener());
+        b4.addActionListener(new InternalAnswerListener());
 
         b1.setFont(alternativesFont);
         b1.setBackground(Color.YELLOW);
@@ -84,16 +86,13 @@ public class QuestionPanel extends JPanel {
             lastClickedButton.revalidate();
             lastClickedButton.repaint();
         }
+    }
 
+    public void setObjectOutputStream(ObjectOutputStream oos) {
+        this.oos = oos;
     }
 
     public class InternalAnswerListener implements ActionListener {
-
-        private ObjectOutputStream oos;
-
-        public InternalAnswerListener(ObjectOutputStream oos) {
-            this.oos = oos;
-        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -102,7 +101,8 @@ public class QuestionPanel extends JPanel {
                 lastClickedButton = button;
                 System.out.println(button.getText());
                 try {
-                    oos.writeObject(button.getText());
+                    if(oos != null)
+                        oos.writeObject(button.getText());
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

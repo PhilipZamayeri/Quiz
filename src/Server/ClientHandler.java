@@ -19,22 +19,16 @@ public class ClientHandler implements Runnable {
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
 
-            //DAO questionHandler = new DAO();
-
             Question question = (Question) questionsDatabase.handleQuestion(null);
-            //NewGameGui nyttSpel= new NewGameGui();
 
             //Skickar fråga till Clienten
-
+            writer.writeObject("Välj catagorie");
 
             Object input;
             while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
 
-                if(input instanceof NewGameRequest) {
-                    writer.writeObject("Välj catagorie");
-                }
-                else if(input.equals("Geografi")){
+                if(input.equals("Geografi")){
                     question = questionsDatabase.g1;
                     writer.writeObject(question);
                 }
@@ -52,8 +46,10 @@ public class ClientHandler implements Runnable {
                 }
                 else if (input.equals(question.getAnswer())){
                     writer.writeObject("Svaret är korrekt! " + input);
+                    writer.writeObject("End of game");
                 } else {
                     writer.writeObject("Svaret är fel! " + input);
+                    writer.writeObject("End of game");
                 }
 
             }

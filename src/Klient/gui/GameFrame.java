@@ -14,17 +14,15 @@ public class GameFrame extends JFrame {
     private JPanel mainPanel = new JPanel(new BorderLayout());
     private CategoriePanel categoriePanel;
 
-    public GameFrame(ObjectOutputStream oos) {
+    public GameFrame() {
         super("Quiz");
-        questionPanel = new QuestionPanel(new Question("Q1", "Rätt", List.of("Fel", "Rätt", "Misstag", "Fel igen")), oos);
-        newGamePanel = new NewGamePanel(oos);
-        categoriePanel= new CategoriePanel(oos);
-        //add(questionPanel);
+        questionPanel = new QuestionPanel(new Question("Q1", "Rätt", List.of("Fel", "Rätt", "Misstag", "Fel igen")));
+        newGamePanel = new NewGamePanel(this);
+        categoriePanel= new CategoriePanel();
         add(mainPanel);
         mainPanel.add(newGamePanel);
-        //mainPanel.add(categoriePanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300,400);
+        setSize(600,600);
         setLocation(600, 90);
         setVisible(true);
     }
@@ -54,6 +52,11 @@ public class GameFrame extends JFrame {
         mainPanel.add(categoriePanel);
         mainPanel.revalidate();
         mainPanel.repaint();
+    }
+
+    public void setObjectOutputStream(ObjectOutputStream oos) {
+        questionPanel.setObjectOutputStream(oos);
+        categoriePanel.setObjectOutputStream(oos);
     }
 }
 
