@@ -1,15 +1,16 @@
 package Server;
 
+
 import java.io.*;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     Socket clientSocket;
-    DAO question;
+    DAO questionsDatabase;
 
-    public ClientHandler(Socket clientSocket, DAO question) {
+    public ClientHandler(Socket clientSocket, DAO questionsDatabase) {
         this.clientSocket = clientSocket;
-        this.question = question;
+        this.questionsDatabase = questionsDatabase;
     }
 
     @Override
@@ -18,19 +19,37 @@ public class ClientHandler implements Runnable {
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
 
+            Question question = (Question) questionsDatabase.handleQuestion(null);
+
+            //Skickar fråga till Clienten
+            writer.writeObject("Välj catagorie");
+
             Object input;
-            DAO questionHandler = new DAO();
-
-            writer.writeObject(questionHandler.handleQuestion(null).toString());
-
             while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
 
-                if (input.equals(questionHandler.m1.getAnswer())){
-                    writer.writeObject("Svaret är korrekt! " + input);
+                if(input.equals("Geografi")){
+                    question = questionsDatabase.g1;
+                    writer.writeObject(question);
                 }
-                else {
+                else if(input.equals("Nöje")){
+                    question = questionsDatabase.p1;
+                    writer.writeObject(question);
+                }
+                else if(input.equals("Sport")){
+                    question = questionsDatabase.s1;
+                    writer.writeObject(question);
+                }
+                else if(input.equals("Matematik")){
+                    question = questionsDatabase.m1;
+                    writer.writeObject(question);
+                }
+                else if (input.equals(question.getAnswer())){
+                    writer.writeObject("Svaret är korrekt! " + input);
+                    writer.writeObject("End of game");
+                } else {
                     writer.writeObject("Svaret är fel! " + input);
+                    writer.writeObject("End of game");
                 }
 
             }
