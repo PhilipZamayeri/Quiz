@@ -1,0 +1,18 @@
+Index: src/Server/Protocol.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Server;\n\n/**\n * Created by Donatas Auzelis\n * Date: 2020-11-20\n * Time: 14:05\n * Project: Quiz\n * Copyright: MIT\n */\npublic class Protocol {\n\n    private final int WAITING = 0;\n    private final int BOTHCONNECTED = 1;\n    private final int SENTTOPLAYER1 = 2;\n    private final int PLAYER1ANSWERED = 3;\n    private final int SENTTOPLAYER2 = 4;\n    private final int PLAYER2ANSWERED = 5;\n    private final int VALIDATIONSENT = 6;\n\n    private int gameState = WAITING;\n\n    public void process() {\n\n        if (gameState == WAITING) {\n            //Nånting här\n            //Vänta tills båda ansluter sig\n            gameState = BOTHCONNECTED;\n        } else if (gameState == BOTHCONNECTED) {\n            //Starta spelet\n            //Skicka frågorna\n            gameState = SENTTOPLAYER1;\n        } else if (gameState == SENTTOPLAYER1) {\n            //Skicka fråga till player 1\n            gameState = SENTTOPLAYER2;\n        } else if (gameState == SENTTOPLAYER2) {\n            //Skicka fråga till player 2\n            gameState = PLAYER1ANSWERED;\n        } else if (gameState == PLAYER1ANSWERED) {\n            //Kontrollera svar\n            gameState = PLAYER2ANSWERED;\n        } else if (gameState == PLAYER2ANSWERED) {\n            //Kontrollera svar\n            gameState = VALIDATIONSENT;\n        } else if (gameState == VALIDATIONSENT) {\n\n        }\n\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Server/Protocol.java	(revision 43cf0e7a25f6ef86267033dac4f213545d4e83f7)
++++ src/Server/Protocol.java	(date 1605879432812)
+@@ -19,6 +19,8 @@
+ 
+     private int gameState = WAITING;
+ 
++    DAO dao = new DAO();
++
+     public void process() {
+ 
+         if (gameState == WAITING) {
