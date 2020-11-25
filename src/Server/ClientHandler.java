@@ -2,6 +2,7 @@ package Server;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Collections;
 
 /**
  * Created by Philip Zamayeri
@@ -42,7 +43,7 @@ public class ClientHandler extends Thread{
             while ((input = reader.readObject()) != null) {
                 System.out.println("Get message " + input);
 
-                if (input.equals("Nytt")){
+                if (input.equals(questionHandler.m1.getAnswer())){
                     writer.writeObject("Svaret är korrekt! " + input);
 
                 }

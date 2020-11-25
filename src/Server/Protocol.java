@@ -49,8 +49,11 @@ public class Protocol {
     }
 
     public void checkInput(String input) {
-        if (input.equalsIgnoreCase(dao.geoAnswer() || dao.geoAnswer2() || dao.mathAnswer() || dao.geoAnswer2()
-                || dao.sportAnswer() || dao.sportAnswer2() || dao.pleasureAnswer() || dao.pleasureAnswer2())) {
+        if (input.equalsIgnoreCase(dao.geoAnswer()) || input.equalsIgnoreCase(dao.geoAnswer2())
+                || input.equalsIgnoreCase(dao.sportAnswer()) || input.equalsIgnoreCase(dao.sportAnswer2())
+        || input.equalsIgnoreCase(dao.mathAnswer()) || input.equalsIgnoreCase(dao.mathAnswer2())
+        || input.equalsIgnoreCase(dao.pleasureAnswer()) || input.equalsIgnoreCase(dao.pleasureAnswer2())){
+
             System.out.println("Korrekt");
         } else {
             System.out.println("Fel svar");
